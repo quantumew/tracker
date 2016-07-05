@@ -1,0 +1,51 @@
+{
+    "name": "tracker",
+    "version": "1.0.0",
+    "description": "Command line interface for time tracking.",
+    "scripts": {
+        "test": "scripts/test",
+        "watch": "scripts/watch"
+    },
+    "bin": "tk",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/quantumew/tracker.git"
+    },
+    "keywords": [
+        "time",
+        "time tracking",
+        "tracking",
+        "tracker",
+        "cli"
+    ],
+    "author": "Andy Gertjejansen",
+    "contributors": [
+        {
+            "name": "Andy Gertjejansen",
+            "email": "andygertjejansen@outlook.com",
+            "url": "https://github.com/quantumew"
+        }
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/quantumew/tracker/issues"
+    },
+    "homepage": "https://github.com/quantumew/tracker",
+    "devDependencies": {
+        "codecov": "^1.0.1",
+        "eslint": "^3.6.0",
+        "istanbul": "^0.4.5",
+        "jasmine-node": "^1.14.5",
+        "jasmine-test-helpers": "^1.1.0",
+        "mock-require": "^1.3.0"
+    },
+    "dependencies": {
+        "bluebird": "^3.4.6",
+        "console.table": "^0.7.0",
+        "dizzy": "^2.1.1",
+        "jsonfile": "^2.3.1",
+        "moment": "^2.17.1",
+        "neodoc": "latest",
+        "readline": "^1.3.0"
+    }
+}

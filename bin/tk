@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+"use strict";
+
+var args, container, debug, doc, logger, neodoc, runner;
+
+container = require("../lib/container");
+neodoc = container.resolve("neodoc");
+
+doc = `Time tracking command line interface.
+
+Usage:
+    tk use <timesheet> [options]
+    tk in <tag> [--description <desc>] [--at <time>] [options]
+    tk out [--at <time>] [options]
+    tk analyze [<tag>] [options]
+    tk edit [options]
+
+Generic Options:
+    --verbose, -v            Turn on debug logging.
+
+    --help, -h, -?           Shows this help message.
+
+Action Specific Options:
+    <timesheet>              Timesheet to use.
+
+    <tag>                    Tag for entry in timesheet.
+
+    -d, --description <desc> Description of timesheet clock in entry.
+
+    -a, --at <time>          Time to do action at.
+
+Examples:
+
+    # Create a timesheet.
+    tk use code-review
+
+    # Clock into timesheet with tag tracker with a long description.
+    tk in tracker --description "Code review for Johny Johnson on tracker."
+
+    # Clock out of a timesheet manually.
+    tk out
+
+    # Anaylyze timesheet.
+    tk analyze
+`;
+args = neodoc.run(doc);
+debug = args["--verbose"] || process.env.DEBUG;
+container.register("debug", debug);
+logger = container.resolve("logger");
+runner = container.resolve("runner");
+runner.run(args).catch((err) => {
+    logger.error("Error occurred.");
+    logger.debug(err);
+    process.exit(1);
+});

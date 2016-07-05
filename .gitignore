@@ -1,3 +1,8 @@
+timesheets/
+
+# swp files
+*.swp
+
 # Logs
 logs
 *.log
