@@ -10,24 +10,31 @@ doc = `Time tracking command line interface.
 
 Usage:
     tk use <timesheet> [options]
-    tk in <tag> [--description <desc>] [--at <time>] [options]
-    tk out [--at <time>] [options]
-    tk analyze [<tag>] [options]
-    tk edit [options]
+    tk in <tag> [--description=<desc>] [--at=<time>] [options]
+    tk out [--at=<time>] [options]
+    tk analyze [<tag>] [--all] [options]
+    tk edit <id> [--in=<time>] [--out=<time>] [options]
 
-Generic Options:
+options:
     --verbose, -v            Turn on debug logging.
 
     --help, -h, -?           Shows this help message.
 
-Action Specific Options:
-    <timesheet>              Timesheet to use.
+    <id>                      Id of entry to edit.
 
-    <tag>                    Tag for entry in timesheet.
+    <timesheet>               Timesheet to use.
 
-    -d, --description <desc> Description of timesheet clock in entry.
+    <tag>                     Tag for entry in timesheet.
 
-    -a, --at <time>          Time to do action at.
+    -a, --at <time>           Time to clock in/out.
+
+    --all                     Analyze all timesheets for the day.
+
+    -d, --description <desc>  Description of timesheet clock in entry. [default: ""]
+
+    --in <time>               Edit clock in time.
+
+    --out <time>              Edit clock out time.
 
 Examples:
 
@@ -42,6 +49,9 @@ Examples:
 
     # Anaylyze timesheet.
     tk analyze
+
+    # Edit clock out time of entry #2 of a timesheet.
+    tk edit 2 --in "10:30"
 `;
 args = neodoc.run(doc);
 debug = args["--verbose"] || process.env.DEBUG;

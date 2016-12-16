@@ -183,19 +183,7 @@ describe("runner", () => {
         describe("analyze", () => {
             var durationMock, formatted;
 
-            it("analyzes entire timesheet", () => {
-                args = {};
-                timeMock.formatDuration.andReturn("time-duration");
-                timeMock.splitDate.andReturn({
-                    time: "11:11",
-                    day: "Sunday, December, 11 2016"
-                });
-                durationMock = jasmine.createSpyObj("duration", [
-                    "add"
-                ]);
-                timeMock.duration.andReturn(durationMock);
-                fsMock.readFileAsync.andReturn(bluebird.resolve(mockTimesheet));
-
+            beforeEach(() => {
                 // Pretty painful but to have a thorough functional test I want
                 // to assert this here. This might change. A unit test for
                 //  Timesheet should probably do this work.
@@ -217,9 +205,49 @@ describe("runner", () => {
                         Description: ""
                     }
                 ];
+            });
+            it("analyzes all timesheets", () => {
+                var allFormatted, formattedTwo;
+
+                formattedTwo = JSON.parse(JSON.stringify(formatted));
+                allFormatted = formattedTwo.concat(formatted);
+                allFormatted.splice(0, 0, {timesheet: "code-review"});
+                allFormatted.splice(3, 0, {timesheet: "code"});
+                allFormatted[2]["Clock Out"] = "11:11";
+                args = {
+                    "--all": true
+                };
+                timeMock.formatDuration.andReturn("time-duration");
+                timeMock.splitDate.andReturn({
+                    time: "11:11",
+                    day: "Sunday, December, 11 2016"
+                });
+                durationMock = jasmine.createSpyObj("duration", [
+                    "add"
+                ]);
+                timeMock.duration.andReturn(durationMock);
+                fsMock.readFileAsync.andReturn(bluebird.resolve(mockTimesheet));
 
                 return runner.run(args).then(() => {
-                    expect(loggerMock.table).toHaveBeenCalledWith("code Timesheet Analytics", formatted);
+                    expect(loggerMock.table).toHaveBeenCalledWith("Timesheet Analytics", allFormatted);
+                    expect(loggerMock.info).toHaveBeenCalledWith("Total: time-duration");
+                });
+            });
+            it("analyzes entire timesheet", () => {
+                args = {};
+                timeMock.formatDuration.andReturn("time-duration");
+                timeMock.splitDate.andReturn({
+                    time: "11:11",
+                    day: "Sunday, December, 11 2016"
+                });
+                durationMock = jasmine.createSpyObj("duration", [
+                    "add"
+                ]);
+                timeMock.duration.andReturn(durationMock);
+                fsMock.readFileAsync.andReturn(bluebird.resolve(mockTimesheet));
+
+                return runner.run(args).then(() => {
+                    expect(loggerMock.table).toHaveBeenCalledWith("Timesheet Analytics", formatted);
                     expect(loggerMock.info).toHaveBeenCalledWith("Total: time-duration");
                 });
             });
