@@ -59,7 +59,6 @@ container.register("debug", debug);
 logger = container.resolve("logger");
 runner = container.resolve("runner");
 runner.run(args).catch((err) => {
-    logger.error("Error occurred.");
-    logger.debug(err);
+    logger.error(err);
     process.exit(1);
 });
