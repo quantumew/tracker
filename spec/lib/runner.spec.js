@@ -1,12 +1,13 @@
 "use strict";
 
 describe("runner", () => {
-    var bluebird, container, fsMock, jsonFileMock, loggerMock, mockRequire, mockTimesheet, neodocMock, runner, stat, timeMock;
+    var bluebird, container, fsMock, jsonFileMock, loggerMock, mkdirp, mockRequire, mockTimesheet, neodocMock, runner, stat, timeMock;
 
     beforeEach(() => {
         mockRequire = require("mock-require");
         container = mockRequire.reRequire("../../lib/container");
         bluebird = container.resolve("bluebird");
+        mkdirp = jasmine.createSpy("mkdirpAsync").andReturn(bluebird.resolve());
         fsMock = jasmine.createSpyObj("fsAsync", [
             "readFileAsync",
             "statAsync"
@@ -23,6 +24,7 @@ describe("runner", () => {
         container.register("fsAsync", fsMock);
         container.register("jsonFileAsync", jsonFileMock);
         container.register("neodoc", neodocMock);
+        container.register("mkdirpAsync", mkdirp);
         mockTimesheet = JSON.stringify({
             currentTimesheet: "code",
             timesheets: {
