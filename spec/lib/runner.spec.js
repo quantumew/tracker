@@ -1,7 +1,7 @@
 "use strict";
 
 describe("runner", () => {
-    var bluebird, container, fsMock, jsonFileMock, loggerMock, mkdirp, mockRequire, mockTimesheet, neodocMock, runner, stat, timeMock;
+    var bluebird, container, fsMock, jsonFileMock, loggerMock, mkdirp, mockRequire, mockTimesheet, Moment, neodocMock, runner, stat, timeMock, tm;
 
     beforeEach(() => {
         mockRequire = require("mock-require");
@@ -74,8 +74,12 @@ describe("runner", () => {
             "formatDuration",
             "now",
             "date",
-            "splitDate"
+            "splitDate",
+            "getRange"
         ]);
+        Moment = require("moment");
+        tm = new Moment("12-11-2016", "MM-DD-YYYY");
+        timeMock.getRange.andReturn(Moment.range(tm, tm));
         timeMock.now.andReturn("NOW");
         container.register("time", timeMock);
         container.register("logger", loggerMock);
@@ -208,7 +212,7 @@ describe("runner", () => {
                     }
                 ];
             });
-            it("analyzes all timesheets", () => {
+            it("analyzes current days timesheets", () => {
                 var allFormatted, formattedTwo;
 
                 formattedTwo = JSON.parse(JSON.stringify(formatted));
@@ -217,7 +221,8 @@ describe("runner", () => {
                 allFormatted.splice(3, 0, {timesheet: "code"});
                 allFormatted[2]["Clock Out"] = "11:11";
                 args = {
-                    "--all": true
+                    analyze: true,
+                    "--today": true
                 };
                 timeMock.formatDuration.andReturn("time-duration");
                 timeMock.splitDate.andReturn({
@@ -235,8 +240,10 @@ describe("runner", () => {
                     expect(loggerMock.info).toHaveBeenCalledWith("Total: time-duration");
                 });
             });
-            it("analyzes entire timesheet", () => {
-                args = {};
+            it("analyzes used timesheet for today", () => {
+                args = {
+                    analyze: true
+                };
                 timeMock.formatDuration.andReturn("time-duration");
                 timeMock.splitDate.andReturn({
                     time: "11:11",

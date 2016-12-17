@@ -46,6 +46,7 @@
         "jsonfile": "^2.3.1",
         "mkdirp": "latest",
         "moment": "^2.17.1",
+        "moment-range": "^2.2.0",
         "neodoc": "latest",
         "readline": "^1.3.0"
     }

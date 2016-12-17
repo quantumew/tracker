@@ -12,7 +12,7 @@ Usage:
     tk use <timesheet> [options]
     tk in <tag> [--description=<desc>] [--at=<time>] [options]
     tk out [--at=<time>] [options]
-    tk analyze [<tag>] [--all] [options]
+    tk analyze [--tag <tag>] [--today] [--yesterday] [--from <date>] [--to <date>] [options]
     tk edit <id> [--in=<time>] [--out=<time>] [options]
 
 options:
@@ -26,11 +26,19 @@ options:
 
     <tag>                     Tag for entry in timesheet.
 
+    --tag <tag>               Tag to analyze with.
+
     -a, --at <time>           Time to clock in/out.
 
-    --all                     Analyze all timesheets for the day.
+    -t, --today               Analyze all timesheets for the day.
+
+    -y, --yesterday           Analyze timesheets for previous day.
 
     -d, --description <desc>  Description of timesheet clock in entry. [default: ""]
+
+    -t <date>, --to <date>    Date to analyze to.
+
+    -f <date>, --from <date>  Date to analyze from.
 
     --in <time>               Edit clock in time.
 
@@ -59,6 +67,7 @@ container.register("debug", debug);
 logger = container.resolve("logger");
 runner = container.resolve("runner");
 runner.run(args).catch((err) => {
-    logger.error(err);
+    logger.error(err.message);
+    logger.debug(err);
     process.exit(1);
 });
