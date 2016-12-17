@@ -19,6 +19,7 @@ Usage
     tk edit <id> [--in=<time>] [--out=<time>] [options]
 
 options:
+
     --verbose, -v            Turn on debug logging.
 
     --help, -h, -?           Shows this help message.
@@ -61,10 +62,11 @@ To start using tracker you must first understand the basics. It works with times
     # that will occur automatically.
     tk use code
 
-    tk in tracker --description "Making a hacky time tracking utility"
+    # Clock in with description and a time in the future.
+    tk in tracker --at 10:30 --description "Making a hacky time tracking utility"
 
-    # We can manually clock out.
-    tk out
+    # We can manually clock out at a particular time.
+    tk out --at 12:30
 
 Analyze
 -------
