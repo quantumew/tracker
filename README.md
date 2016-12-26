@@ -134,11 +134,15 @@ Delete
 You can delete particular entries from your timesheets!
 
 
-    # Delete 2nd entry from code timesheet for today.
+    # Delete entry with ID of 2 from code timesheet for today.
     tk use code
     tk delete 2
 
 
 Edit
 ----
-Currently unimplemented.
+You can edit entries.
+
+    # Edit entry with ID of 2 from code timesheet.
+    tk use code
+    tk edit 2 --in 13:30 --out 14:01 --tag tracker --description "Edited this entry as an example"
