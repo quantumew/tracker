@@ -13,7 +13,8 @@ Usage:
     tk in <tag> [--description=<desc>] [--at=<time>] [options]
     tk out [--at=<time>] [options]
     tk analyze [--tag <tag>] [--today] [--yesterday] [--from <date>] [--to <date>] [options]
-    tk edit <id> [--in=<time>] [--out=<time>] [options]
+    tk edit <id> [--in=<time>] [--out=<time>] [--tag <tag>] [options]
+    tk delete <id> [options]
 
 options:
     --verbose, -v            Turn on debug logging.
@@ -60,6 +61,9 @@ Examples:
 
     # Edit clock out time of entry #2 of a timesheet.
     tk edit 2 --in "10:30"
+
+    # Delete an entry.
+    tk delete 2
 `;
 args = neodoc.run(doc);
 debug = args["--verbose"] || process.env.DEBUG;

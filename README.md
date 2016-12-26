@@ -93,10 +93,10 @@ This feature is still a work in progress but the goal is to be an easy interface
 
     Timesheet Analytics
     ---------------------------------------------------------------------------------------
-    Day                          Clock In     Clock Out    Duration  Tag        Description
-    ---------------------------  -----------  -----------  --------  ---------  -----------
-    Saturday, December 10, 2016  22:03:12 pm  23:02:34 pm  0:59      tracker    Making a hacky time tracking utility
-    Sunday, December 11, 2016    12:50:21 pm  12:59:53 pm  0:09      tracker    doing more tracker stuuuf
+    ID  Day                          Clock In     Clock Out    Duration  Tag        Description
+    --  ---------------------------  -----------  -----------  --------  ---------  -----------
+    0   Saturday, December 10, 2016  22:03:12 pm  23:02:34 pm  0:59      tracker    Making a hacky time tracking utility
+    1   Sunday, December 11, 2016    12:50:21 pm  12:59:53 pm  0:09      tracker    doing more tracker stuuuf
 
     Total: 1:08
 
@@ -106,19 +106,19 @@ This feature is still a work in progress but the goal is to be an easy interface
 
     Timesheet Analytics
     -------------------------------------------------------------------------------------------------------
-    timesheet    Day                          Clock In     Clock Out    Duration  Tag        Description
-    -----------  ---------------------------  -----------  -----------  --------  ---------  --------------
+    timesheet   ID   Day                          Clock In     Clock Out    Duration  Tag        Description
+    ----------- --  ---------------------------  -----------  -----------  --------  ---------  --------------
     code-review
-                 Thursday, December 15, 2016  20:17:19 pm  20:19:07 pm  0:01      DDQ        PR #7
-                 Thursday, December 15, 2016  21:22:54 pm  22:05:34 pm  0:42      OpenToken  PR #106
+                0   Thursday, December 15, 2016  20:17:19 pm  20:19:07 pm  0:01      DDQ        PR #7
+                1   Thursday, December 15, 2016  21:22:54 pm  22:05:34 pm  0:42      OpenToken  PR #106
     code
-                 Thursday, December 15, 2016  22:03:12 pm  23:02:34 pm  0:59      DDQ
-                 Thursday, December 15, 2016  12:50:21 pm  12:59:53 pm  0:09      Tracker    Tracker stuff.
-                 Thursday, December 15, 2016  13:10:32 pm  14:36:22 pm  1:25      work
-                 Thursday, December 15, 2016  14:36:22 pm  20:09:02 pm  5:32      other      something new!
-                 Thursday, December 15, 2016  20:09:02 pm  20:18:57 pm  0:09      work
+                0   Thursday, December 15, 2016  22:03:12 pm  23:02:34 pm  0:59      DDQ
+                1   Thursday, December 15, 2016  12:50:21 pm  12:59:53 pm  0:09      Tracker    Tracker stuff.
+                2   Thursday, December 15, 2016  13:10:32 pm  14:36:22 pm  1:25      work
+                3   Thursday, December 15, 2016  14:36:22 pm  20:09:02 pm  5:32      other      something new!
+                4   Thursday, December 15, 2016  20:09:02 pm  20:18:57 pm  0:09      work
     meeting
-                 Thursday, December 15, 2016  20:19:24 pm  21:00:22 pm  0:40      standup    daily meeting.
+                0   Thursday, December 15, 2016  20:19:24 pm  21:00:22 pm  0:40      standup    daily meeting.
 
     Total: 9:42
 
@@ -128,6 +128,15 @@ This feature is still a work in progress but the goal is to be an easy interface
 
     # Analyze particular range.
     tk analyze --from 12-11-16 --to 12-13-16
+
+Delete
+------
+You can delete particular entries from your timesheets!
+
+
+    # Delete 2nd entry from code timesheet for today.
+    tk use code
+    tk delete 2
 
 
 Edit
