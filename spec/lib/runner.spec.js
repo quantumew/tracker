@@ -195,6 +195,7 @@ describe("runner", () => {
                 //  Timesheet should probably do this work.
                 formatted = [
                     {
+                        ID: 0,
                         Day: "Sunday, December, 11 2016",
                         "Clock In": "11:11",
                         "Clock Out": "11:11",
@@ -203,6 +204,7 @@ describe("runner", () => {
                         Description: ""
                     },
                     {
+                        ID: 1,
                         Day: "Sunday, December, 11 2016",
                         "Clock In": "11:11",
                         "Clock Out": "",
